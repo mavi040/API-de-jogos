@@ -1,35 +1,37 @@
 const colecaoJogos = [
     {
         id: 1,
-        titulo: "Minecraft",
-        plataforma: "Multi-plataforma",
-        genero: "Aventura"
+        titulo: "Super Mário",
+        genero: "Plataforma",
+        plataforma: "Super Nintendo",
     },
     {
+
+    
         id: 2,
-        titulo: "Mario Kart",
-        plataforma: "Nitendo",
-        genero: "Plataforma"
+        titulo: "Donkey Kong",
+        genero: "Plataforma",
+        plataforma: "Super Nintendo"
+
     },
     {
         id: 3,
-        titulo: "Subnautica",
-        plataforma: " ",
-        genero: "Aventura"
+        titulo: "Need for Speed: Underground 2",
+        genero: "Corrida",
+        plataforma: "Playstation 2"
     },
     {
         id: 4,
-        titulo: "Star Wars Outlaws",
-        plataforma: "Playstation 5",
-        genero: "Ação"
+        titulo: "Minecraft" ,
+        genero: "Aventura",
+        plataforma: "Multi-Plataforma"
     },
     {
         id: 5,
-        titulo: "Pes",
-        plataforma: "Playstation 4",
-        genero: "Futebol"
+        titulo: "GTA 5",
+        genero: "Aventura",
+        plataforma: "Multi-Plataforma"
     }
-
 ]
 
-export default colecaoJogos;
+export default colecaoJogos; 

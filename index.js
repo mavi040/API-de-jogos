@@ -1,34 +1,70 @@
-//import colecaoUf from "./dados/dados.js";
 import express from 'express';
-import { buscarJogos, buscarJogosPorId, buscarJogosPorGenero, buscarJogosPorPlataforma } from './servicos/servico.js';
+import { buscarJogoPorId, buscarJogos, buscarJogoPorGenero, buscarJogoPorPlataforma} from './servicos/servico.js';
 
 const app = express();
 
-//app.get('/jogos/', (req, res) => {
-    //const idjogo = req.query.busca;
-    //const resultado = idjogo ? buscarJogosPorId(idjogo) : buscarJogos();
+app.get('/jogos', (req, res) => {
+  const generojogo = req.query.genero;
+  const resultado = generojogo ? buscarJogoPorGenero(generojogo) : buscarJogos();
 
-    //if (resultado.length > 0) {res.json(resultado);
-    //} else {
-      //  res.status(404).send({ "erro": "Nenhum Jogo encontrado" })
-    //}
-//});
+  if (resultado.length > 0) {
+    res.json(resultado);
+  } else {
+    res.status(404).send({ erro: "Nenhuma UF encontrada" });
+  }
+});
 
-app.get('/jogos/:idjogos', (req, res) => {
-    const idJogo = parseInt(req.params.id);
-    const jogo = buscarJogosPorId(idJogo)
- 
-    if (jogos) {
-        res.json(jogo)
-    } else if(isNaN(idJogo)) {
-        res.status(400).json({ "erro": "Requisição inválida" });
-    }else{
-        res.status(404).json({ "erro": "Pais não encontrado" });
-    }
-})
+app.get('/jogos/plataforma/:nomePlataforma', (req, res) => {
+  const nomePlat = req.params.nomePlataforma;
+  const resultado = nomePlat ? buscarJogoPorPlataforma(nomePlat) : buscarJogos();
+  if (resultado.length > 0) {
+    res.json(resultado);
+  } else {
+    res.status(404).send({ erro: "Nenhuma UF encontrada" });
+  }
+});
+
+app.get('/jogos/:id', (req, res) => {
+  const jogoid = parseInt(req.params.id);
+
+  if (isNaN(jogoid)) {
+    return res.status(400).json({ erro: "Requisição inválida" });
+  }
+
+  const jogo = buscarJogoPorId(jogoid);
+
+  if (jogo) {
+    res.json(jogo);
+  } else {
+    res.status(404).json({ erro: "Jogo não encontrado" });
+  }
+});
+
+app.get('/jogos/', (req, res) => {
+  const jogosid = req.params.id;
+  const resultado = buscarUfsPorSigla(jogosid);
+
+  if (resultado.length > 0) {
+    res.json(resultado);
+  } else {
+    res.status(404).send({ erro: "Nenhuma UF encontrada" });
+  }
+});
+
+
+
+app.get('/ufs/inicial/:inicial', (req, res) => {
+  const inicialUf = req.params.inicial;
+  const resultado = buscarUfsPorInicial(inicialUf);
+
+  if (resultado.length > 0) {
+    res.json(resultado);
+  } else {
+    res.status(404).send({ erro: "Nenhuma UF encontrada" });
+  }
+});
 
 app.listen(8080, () => {
-    let data = new Date();
-    console.log("Servidor iniciado na porta 8080 em: " + data);
-})
-
+  const data = new Date();
+  console.log("Servidor iniciado na porta 8080 em: " + data);
+});
